@@ -13,6 +13,6 @@ setup(
     description='Client for Feedly ',
     include_package_data=True,
     install_requires=[
-
+        'requests',
     ],
 )

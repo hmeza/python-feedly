@@ -3,7 +3,13 @@
 import json
 import requests
 
+
+def json_fetch(url, method, params={}, data={}, headers={}):
+    response = requests.request(method, url, params=params, data=json.dumps(data), headers=headers)
+    return response.json()
+
 class FeedlyClient(object):
+
     def __init__(self, **options):
         self.client_id = options.get('client_id')
         self.client_secret = options.get('client_secret')
@@ -16,6 +22,20 @@ class FeedlyClient(object):
         self.additional_headers = options.get('additional_headers', {})
         self.token = options.get('token')
         self.secret = options.get('secret')
+
+    def get_user_profile(self, access_token):
+        """
+        return user's profile
+        :param access_token:
+        :return:
+        """
+        headers = {'content-type': 'application/json',
+                   'Authorization': 'OAuth ' + access_token
+        }
+        request_url = self._get_endpoint('/v3/profile')
+
+        return json_fetch(request_url, "get", headers=headers)
+
 
     def get_code_url(self, callback_url):
         """
@@ -130,8 +150,9 @@ class FeedlyClient(object):
         :param entryIds:
         :return:
         """
-        headers = {'content-type': 'application/json',
-                   'Authorization': 'OAuth ' + access_token
+        headers = {
+            'content-type': 'application/json',
+            'Authorization': 'OAuth ' + access_token
         }
         request_url = self._get_endpoint('v3/tags') + '/user%2F' + user_id + '%2Ftag%2Fglobal.saved'
 
