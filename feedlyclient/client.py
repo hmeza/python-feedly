@@ -28,6 +28,7 @@ class FeedlyClient(object):
             'categories': '/v3/categories',
             'topics': '/v3/topics',
             'tags': '/v3/tags',
+            'subscriptions': '/v3/subscriptions',
         }
 
     def get_user_profile(self, access_token):
