@@ -23,6 +23,13 @@ class FeedlyClient(object):
         self.token = options.get('token')
         self.secret = options.get('secret')
 
+        self.info_urls = {
+            'preferences': '/v3/preferences',
+            'categories': '/v3/categories',
+            'topics': '/v3/topics',
+            'tags': '/v3/tags',
+        }
+
     def get_user_profile(self, access_token):
         """
         return user's profile
@@ -98,10 +105,7 @@ class FeedlyClient(object):
         :param access_token:
         :return:
         """
-        headers = {'Authorization': 'OAuth ' + access_token}
-        quest_url = self._get_endpoint('v3/subscriptions')
-        res = requests.get(url=quest_url, headers=headers)
-        return res.json()
+        return self.get_info_type(access_token, 'subscriptions')
 
     def get_feed_content(self, access_token, streamId, unreadOnly, newerThan):
         """
@@ -171,3 +175,13 @@ class FeedlyClient(object):
         if path is not None:
             url += "/%s" % path
         return url
+
+    def _get_info(self, access_token, url_endpoint):
+        headers = {'Authorization': 'OAuth ' + access_token}
+        quest_url = self._get_endpoint(url_endpoint)
+        res = requests.get(url=quest_url, headers=headers)
+        return res.json()
+
+    def get_info_type(self, access_token, type):
+        if type in self.info_urls.keys():
+            return self._get_info(access_token, self.info_urls.get(type))
