@@ -1,4 +1,4 @@
-FeedlyClient
+python-feedly
 ============
 
 .. image:: https://pypip.in/v/python-feedly/badge.png
