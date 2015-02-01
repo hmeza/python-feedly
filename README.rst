@@ -1,7 +1,9 @@
 FeedlyClient
 ============
 
-A client for Feedly.[feedly api](http://developer.feedly.com/)
+.. _feedly: www.feedly.com 
+
+A client for feedly_.
 
 Usage
 =====
@@ -14,9 +16,14 @@ Auth
 ----
 
 At first, you can go to :
-	- [sandbox feedly](https://sandbox.feedly.com/v3/auth/dev) - access to sandbox (can be used for personal development)
-	- [feedly cloud](https://feedly.com/v3/auth/dev)  - access to feedly.com (can be used for personal development)
-	- [feedly developer](http://developer.feedly.com/v3/sandbox/) - access  (can be used for production development)
+
+.. _sandbox feedly: https://sandbox.feedly.com/v3/auth/dev
+.. _feedly cloud: https://feedly.com/v3/auth/dev
+.. _feedly developer: http://developer.feedly.com/v3/sandbox/
+
+	-  `sandbox feedly`_ - access to sandbox (can be used for personal development)
+	- `feedly cloud`_ - access to feedly.com (can be used for personal development)
+	- `feedly developer`_ - access  (can be used for production development)
 
 To apply for a client id and client secret. Then you can go to feedly to obtain a code.
 
