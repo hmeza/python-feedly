@@ -32,7 +32,7 @@ setup(
     author='Alexander Sapronov',
     author_email='sapronov.alexander92@gmail.com',
     description='Client for Feedly.com',
-    url='https://github.com/WarmongeR1/FeedlyClient',
+    url='https://github.com/WarmongeR1/python-feedly',
     include_package_data=True,
     install_requires=[
         'requests',
