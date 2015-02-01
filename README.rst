@@ -2,10 +2,10 @@ FeedlyClient
 ============
 
 .. image:: https://pypip.in/v/python-feedly/badge.png
-:target: https://pypi.python.org/pypi/python-feedly
+	:target: https://pypi.python.org/pypi/python-feedly
 
 .. image:: https://pypip.in/d/python-feedly/badge.png
-:target: https://pypi.python.org/pypi/python-feedly
+	:target: https://pypi.python.org/pypi/python-feedly
 
 
 .. _feedly: www.feedly.com 
