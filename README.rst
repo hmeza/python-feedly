@@ -3,13 +3,32 @@ FeedlyClient
 
 A client for Feedly.[feedly api](http://developer.feedly.com/)
 
-# Usage
-## Auth
-At first, you can go to [feedly developer](http://developer.feedly.com/v3/sandbox/) to apply for a client id and client secret. Then you can go to feedly to obtain a code.
+Usage
+=====
+
+.. code-block:: bash
+
+	$ pip install python-feedly
+	
+Auth
+----
+
+At first, you can go to :
+	- [sandbox feedly](https://sandbox.feedly.com/v3/auth/dev) - access to sandbox (can be used for personal development)
+	- [feedly cloud](https://feedly.com/v3/auth/dev)  - access to feedly.com (can be used for personal development)
+	- [feedly developer](http://developer.feedly.com/v3/sandbox/) - access  (can be used for production development)
+
+To apply for a client id and client secret. Then you can go to feedly to obtain a code.
+
+Examples
+--------
+
+.. code-block:: python
 
 	FEEDLY_REDIRECT_URI = "http://fabreadly.com/auth_callback"
 	FEEDLY_CLIENT_ID="client_id"
 	FEEDLY_CLIENT_SECRET="client_secret"
+
 	def get_feedly_client(token=None):
 		if token:
 			return FeedlyClient(token=token, sandbox=True)
@@ -25,7 +44,11 @@ At first, you can go to [feedly developer](http://developer.feedly.com/v3/sandbo
 		code_url = feedly.get_code_url(FEEDLY_REDIRECT_URI)    
 		return redirect(code_url)
 
+
 After getting a code, you may exchange it for an access token and a refresh token.
+
+
+.. code-block:: python
 
 	def callback(request):
 		code=request.GET.get('code','')
@@ -43,8 +66,8 @@ After getting a code, you may exchange it for an access token and a refresh toke
 		id = res_access_token['id']
 		access_token=res_access_token['access_token']
 
-## get user's subscription
+	# get user's subscription
 	def feed(access_token):
-		'''get user's subscription'''
-		feedly = get_feedly_client()
-		user_subscriptions = feedly.get_user_subscriptions(access_token)
+			'''get user's subscription'''
+			feedly = get_feedly_client()
+			user_subscriptions = feedly.get_user_subscriptions(access_token)

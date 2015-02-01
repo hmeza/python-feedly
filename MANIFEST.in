@@ -1,2 +1,1 @@
-include *
-recursive-include feedlyclient *
+include README.rst

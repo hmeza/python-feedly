@@ -1,16 +1,38 @@
 #!/usr/bin/env python
 
-from setuptools import setup, find_packages
+import codecs
+import os
+from setuptools import find_packages
+import sys
+from distutils.core import setup
+
+if sys.argv[-1] == 'publish':
+    os.system('python setup.py sdist upload -r pypi')
+    sys.exit()
+
+PACKAGE_VERSION = '0.0.3'
+PACKAGE_DOWNLOAD_URL = (
+
+)
+
+
+def read_file(filename):
+    """
+    Read a utf8 encoded text file and return its contents.
+    """
+    with codecs.open(filename, 'r', 'utf8') as f:
+        return f.read()
 
 setup(
-    name='feedlyclient',
-    version='0.0.2',
-    url='',
-    license='',
+    name='python-feedly',
+    version=PACKAGE_VERSION,
+    license=read_file('LICENSE.txt'),
     packages=find_packages(),
-    author='zgw21cn',
-    author_email='',
-    description='Client for Feedly ',
+    long_description=read_file('README.rst'),
+    author='Alexander Sapronov',
+    author_email='sapronov.alexander92@gmail.com',
+    description='Client for Feedly',
+    url='https://github.com/WarmongeR1/FeedlyClient',
     include_package_data=True,
     install_requires=[
         'requests',
