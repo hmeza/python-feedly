@@ -108,23 +108,28 @@ class FeedlyClient(object):
         """
         return self.get_info_type(access_token, 'subscriptions')
 
-    def get_feed_content(self, access_token, streamId, unreadOnly, newerThan):
+    def get_feed_content(self, access_token, streamId, unreadOnly=None, newerThan=None,count=None,continuation=None):
         """
         return contents of a feed
         :param access_token:
         :param streamId:
         :param unreadOnly:
         :param newerThan:
+        :param count:
+        :param continuation:
         :return:
         """
 
         headers = {'Authorization': 'OAuth ' + access_token}
         quest_url = self._get_endpoint('v3/streams/contents')
         params = dict(
-            streamId=streamId,
-            unreadOnly=unreadOnly,
-            newerThan=newerThan
+            streamId=streamId
         )
+        # Optional parameters
+        if unreadOnly is not None:   params['unreadOnly'] = unreadOnly
+        if newerThan is not None:    params['newerThan'] = newerThan
+        if count is not None:        params['count'] = count
+        if continuation is not None: params['continuation'] = continuation
         res = requests.get(url=quest_url, params=params, headers=headers)
         return res.json()
 
