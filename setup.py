@@ -31,7 +31,7 @@ setup(
     long_description=read_file('README.rst'),
     author='Alexander Sapronov',
     author_email='sapronov.alexander92@gmail.com',
-    description='Client for Feedly',
+    description='Client for Feedly.com',
     url='https://github.com/WarmongeR1/FeedlyClient',
     include_package_data=True,
     install_requires=[
