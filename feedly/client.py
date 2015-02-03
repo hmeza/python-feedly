@@ -108,7 +108,7 @@ class FeedlyClient(object):
         """
         return self.get_info_type(access_token, 'subscriptions')
 
-    def get_feed_content(self, access_token, streamId, unreadOnly=None, newerThan=None, count=None, continuation=None):
+    def get_feed_content(self, access_token, streamId, unreadOnly=None, newerThan=None, count=None, continuation=None,ranked=None):
         """
         return contents of a feed
         :param access_token:
@@ -117,6 +117,7 @@ class FeedlyClient(object):
         :param newerThan:
         :param count:
         :param continuation:
+        :param ranked:
         :return:
         """
 
@@ -134,6 +135,8 @@ class FeedlyClient(object):
             params['count'] = count
         if continuation is not None:
             params['continuation'] = continuation
+        if ranked is not None:
+            params['ranked'] = ranked
         res = requests.get(url=quest_url, params=params, headers=headers)
         return res.json()
 
