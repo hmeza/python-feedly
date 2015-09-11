@@ -8,7 +8,7 @@ python-feedly
 	:target: https://pypi.python.org/pypi/python-feedly
 
 
-.. _feedly: www.feedly.com 
+.. _feedly: http://www.feedly.com
 
 A client for feedly_.
 
