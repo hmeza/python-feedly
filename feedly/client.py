@@ -1,17 +1,19 @@
 # -*- encoding: utf-8 -*-
 
 import json
+
 import requests
 
 
 def json_fetch(url, method, params={}, data={}, headers={}):
-    response = requests.request(
-        method, url, params=params, data=json.dumps(data), headers=headers)
+    response = requests.request(method, url,
+                                params=params,
+                                data=json.dumps(data),
+                                headers=headers)
     return response.json()
 
 
 class FeedlyClient(object):
-
     def __init__(self, **options):
         self.client_id = options.get('client_id')
         self.client_secret = options.get('client_secret')
@@ -39,9 +41,10 @@ class FeedlyClient(object):
         :param access_token:
         :return:
         """
-        headers = {'content-type': 'application/json',
-                   'Authorization': 'OAuth ' + access_token
-                   }
+        headers = {
+            'content-type': 'application/json',
+            'Authorization': 'OAuth ' + access_token
+        }
         request_url = self._get_endpoint('/v3/profile')
 
         return json_fetch(request_url, "get", headers=headers)
@@ -56,12 +59,8 @@ class FeedlyClient(object):
         response_type = 'code'
 
         request_url = '%s?client_id=%s&redirect_uri=%s&scope=%s&response_type=%s' % (
-            self._get_endpoint('v3/auth/auth'),
-            self.client_id,
-            callback_url,
-            scope,
-            response_type
-        )
+            self._get_endpoint('v3/auth/auth'), self.client_id, callback_url,
+            scope, response_type)
         return request_url
 
     def get_access_token(self, redirect_uri, code):
@@ -71,13 +70,11 @@ class FeedlyClient(object):
         :param code:
         :return:
         """
-        params = dict(
-            client_id=self.client_id,
-            client_secret=self.client_secret,
-            grant_type='authorization_code',
-            redirect_uri=redirect_uri,
-            code=code
-        )
+        params = dict(client_id=self.client_id,
+                      client_secret=self.client_secret,
+                      grant_type='authorization_code',
+                      redirect_uri=redirect_uri,
+                      code=code)
 
         quest_url = self._get_endpoint('v3/auth/token')
         res = requests.post(url=quest_url, params=params)
@@ -90,12 +87,10 @@ class FeedlyClient(object):
         :return:
         """
 
-        params = dict(
-            refresh_token=refresh_token,
-            client_id=self.client_id,
-            client_secret=self.client_secret,
-            grant_type='refresh_token',
-        )
+        params = dict(refresh_token=refresh_token,
+                      client_id=self.client_id,
+                      client_secret=self.client_secret,
+                      grant_type='refresh_token', )
         quest_url = self._get_endpoint('v3/auth/token')
         res = requests.post(url=quest_url, params=params)
         return res.json()
@@ -108,7 +103,12 @@ class FeedlyClient(object):
         """
         return self.get_info_type(access_token, 'subscriptions')
 
-    def get_feed_content(self, access_token, streamId, unreadOnly=None, newerThan=None, count=None, continuation=None,ranked=None):
+    def get_feed_content(self, access_token, streamId,
+                         unreadOnly=None,
+                         newerThan=None,
+                         count=None,
+                         continuation=None,
+                         ranked=None):
         """
         return contents of a feed
         :param access_token:
@@ -123,9 +123,7 @@ class FeedlyClient(object):
 
         headers = {'Authorization': 'OAuth ' + access_token}
         quest_url = self._get_endpoint('v3/streams/contents')
-        params = dict(
-            streamId=streamId
-        )
+        params = dict(streamId=streamId)
         # Optional parameters
         if unreadOnly is not None:
             params['unreadOnly'] = unreadOnly
@@ -147,17 +145,15 @@ class FeedlyClient(object):
         :param entryIds:
         :return:
         """
-        headers = {'content-type': 'application/json',
-                   'Authorization': 'OAuth ' + access_token
-                   }
+        headers = {
+            'content-type': 'application/json',
+            'Authorization': 'OAuth ' + access_token
+        }
         quest_url = self._get_endpoint('v3/markers')
-        params = dict(
-            action="markAsRead",
-            type="entries",
-            entryIds=entryIds,
-        )
-        res = requests.post(
-            url=quest_url, data=json.dumps(params), headers=headers)
+        params = dict(action="markAsRead", type="entries", entryIds=entryIds, )
+        res = requests.post(url=quest_url,
+                            data=json.dumps(params),
+                            headers=headers)
         return res
 
     def save_for_later(self, access_token, user_id, entryIds):
@@ -175,11 +171,10 @@ class FeedlyClient(object):
         request_url = self._get_endpoint(
             'v3/tags') + '/user%2F' + user_id + '%2Ftag%2Fglobal.saved'
 
-        params = dict(
-            entryIds=entryIds
-        )
-        res = requests.put(
-            url=request_url, data=json.dumps(params), headers=headers)
+        params = dict(entryIds=entryIds)
+        res = requests.put(url=request_url,
+                           data=json.dumps(params),
+                           headers=headers)
         return res
 
     def _get_endpoint(self, path=None):
