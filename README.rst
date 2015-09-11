@@ -1,5 +1,5 @@
 python-feedly
-==============
+=============
 
 .. image:: https://pypip.in/v/python-feedly/badge.png
 	:target: https://pypi.python.org/pypi/python-feedly
