@@ -95,6 +95,14 @@ class FeedlyClient(object):
         res = requests.post(url=quest_url, params=params)
         return res.json()
 
+    def get_opml(self, access_token):
+        """
+        return user subscriptions in opml format
+        :param access_token:
+        :return:
+        """
+        return self._get_response(access_token, "/v3/opml").text
+
     def get_user_subscriptions(self, access_token):
         """
         return list of user subscriptions
@@ -187,11 +195,13 @@ class FeedlyClient(object):
             url += "/%s" % path
         return url
 
-    def _get_info(self, access_token, url_endpoint):
+    def _get_response(self, access_token, url_endpoint):
         headers = {'Authorization': 'OAuth ' + access_token}
         quest_url = self._get_endpoint(url_endpoint)
-        res = requests.get(url=quest_url, headers=headers)
-        return res.json()
+        return requests.get(url=quest_url, headers=headers)
+
+    def _get_info(self, access_token, url_endpoint):
+        return self._get_response(access_token, url_endpoint).json()
 
     def get_info_type(self, access_token, type):
         if type in self.info_urls.keys():
