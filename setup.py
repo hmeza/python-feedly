@@ -36,4 +36,5 @@ setup(name='python-feedly',
       description='Client for Feedly.com',
       url='https://github.com/WarmongeR1/python-feedly',
       include_package_data=True,
-      install_requires=['requests', ], )
+      install_requires=['requests']
+      )
