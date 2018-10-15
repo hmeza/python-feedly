@@ -20,10 +20,7 @@ class FeedlyClient(object):
         self.client_id = options.get('client_id')
         self.client_secret = options.get('client_secret')
         self.sandbox = options.get('sandbox', True)
-        if self.sandbox:
-            default_service_host = 'sandbox.feedly.com'
-        else:
-            default_service_host = 'cloud.feedly.com'
+        default_service_host = 'cloud.feedly.com'
         self.service_host = options.get('service_host', default_service_host)
         self.additional_headers = options.get('additional_headers', {})
         self.token = options.get('token')
